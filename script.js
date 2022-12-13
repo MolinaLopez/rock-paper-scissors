@@ -1,6 +1,16 @@
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
+const container = document.querySelector('#container');
+const userScoreDisplay = document.querySelector('#score1');
+const computerScoreDisplay = document.querySelector('#score2');
+
+let userScore = 0;
+let computerScore = 0;
+container.textContent = 'Make your move'
+userScoreDisplay.textContent = `Your score: ${userScore}`;
+computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
+
 
 rock.addEventListener('click', () => {
   play('Rock');
@@ -29,25 +39,48 @@ function getComputerChoice() {
 function play(userChoice) {
   let computerChoice = getComputerChoice();
 
-  if (userChoice === 'Rock' && computerChoice === 'Rock') {
-    return "It's a draw.";
+  if (userChoice === computerChoice) {
+    container.textContent = "It's a draw.";
   } else if (userChoice === 'Rock' && computerChoice === 'Paper') {
-    return "You lose! Paper beats Rock.";
+    container.textContent = "You lose! Paper beats Rock.";
+    computerScore++;
+    computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
   } else if (userChoice === 'Rock' && computerChoice === 'Scissors') {
-    return "You win! Rock beats Scissors.";
+    container.textContent = "You win! Rock beats Scissors";
+    userScore++;
+    userScoreDisplay.textContent = `Your score: ${userScore}`;
   } else if (userChoice === 'Paper' && computerChoice === 'Rock') {
-    return "You win! Paper beats Rock.";
-  } else if (userChoice === 'Paper' && computerChoice === 'Paper') {
-    return "It's a draw.";
+    container.textContent = "You win! Paper beats Rock";
+    userScore++;
+    userScoreDisplay.textContent = `Your score: ${userScore}`;
   } else if (userChoice === 'Paper' && computerChoice === 'Scissors') {
-    return "You lose! Scissors beat Paper.";
+    container.textContent = "You lose! Scissors beats Paper.";
+    computerScore++;
+    computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
   } else if (userChoice === 'Scissors' && computerChoice === 'Rock') {
-    return "You lose! Rock beats Scissors.";
+    container.textContent = "You lose! Rock beats Scissors";
+    computerScore++;
+    computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
   } else if (userChoice === 'Scissors' && computerChoice === 'Paper') {
-    return "You win! Scissors beat Paper.";
-  } else if (userChoice === 'Scissors' && computerChoice === 'Scissors') {
-    return "It's a draw.";
+    container.textContent = "You win! Scissors beats Paper";
+    userScore++;
+    userScoreDisplay.textContent = `Your score: ${userScore}`;
   } else {
-    return "Something went wrong.";
+    console.log("Something went wrong.");
+  }
+  if (userScore === 5) {
+    container.textContent = 'You won the game!';
+    userScore = 0;
+    computerScore = 0;
+    userScoreDisplay.textContent = `Your score: ${userScore}`;
+    computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
+    return;
+  } else if (computerScore === 5) {
+    container.textContent = 'Computer won the game!';
+    userScore = 0;
+    computerScore = 0;
+    userScoreDisplay.textContent = `Your score: ${userScore}`;
+    computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
+    return;
   }
 }
